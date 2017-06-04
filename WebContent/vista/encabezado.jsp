@@ -1,6 +1,7 @@
+<%@page import="modelo.CuentaModelo"%>
 <%
 	String parametro = (request.getParameter("activo") != null ? request.getParameter("activo") : "");
-	modelo.CuentaModelo cuenta=null;
+	CuentaModelo cuenta=(CuentaModelo)request.getSession().getAttribute("cuenta");
 %>
 
 <header>
@@ -107,7 +108,7 @@
 				<%
 				
 				if(cuenta!=null){
-					if(cuenta.getRol().equals("administrador")){
+					if(cuenta.getRol().equals("Administrador")){
 				%>
 						<li class="<%=parametro.equals("cuenta") ? "active" : ""%>"><a
 						href="<%=request.getContextPath() + "/vista/cuenta.jsp?activo=cuenta"%>">Cuenta</a></li>
@@ -157,6 +158,8 @@
 		%>
 	</div>
 </nav>
-<br>
-<footer class="navbar-fixed-bottom text-center panel-footer">Universidad
+<div class="navbar-fixed-bottom">
+<footer class="text-center panel-footer ">Universidad
 	La Salle Oaxaca: IS6A</footer>
+	
+</div>

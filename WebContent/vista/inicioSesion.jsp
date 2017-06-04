@@ -40,12 +40,20 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					<div style="display: <%=request.getParameter("mensaje")!=null?"inline":"none" %>;" id="login-alert"
-						class="alert alert-danger col-sm-12">
-						<%=request.getParameter("mensaje")%>
+					<%
+						String insertar = request.getParameter("insertar") != null ? request.getParameter("insertar") : "";
+						if (!insertar.equals("")) {
+							String cssClass = insertar.equals("true") ? "alert-success" : "alert-warning";
+					%>
+					<div class="form-group">
+						<div class="alert <%=cssClass%>" role="alert">
+							<%=request.getParameter("mensaje")%>
 						</div>
-					<form
-						action="<%=request.getContextPath() + "/CuentaControlador"%>"
+					</div>
+					<%
+						}
+					%>
+					<form action="<%=request.getContextPath() + "/CuentaControlador"%>"
 						class="form-horizontal">
 						<input name="accion" type="hidden" value="inicioSesion">
 						<div style="margin-bottom: 25px" class="input-group">
@@ -72,7 +80,7 @@
 					</form>
 					<div class="col-md-12 footer">
 						<br> ¿Aun no tienes una cuenta? <a class=""
-							href="<%=request.getContextPath() + "/registrarUsuario.jsp"%>">Registrate</a>
+							href="<%=request.getContextPath() + "/vista/registrarUsuario.jsp"%>">Registrate</a>
 
 					</div>
 

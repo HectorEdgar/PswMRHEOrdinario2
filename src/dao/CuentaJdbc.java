@@ -21,6 +21,12 @@ public class CuentaJdbc {
 		ArrayList<CuentaModelo> cuentas = crearCuentasObject(Conexion.ejecutarConsulta(query));
 		return cuentas.size()>0?cuentas.get(0):null;
 	}
+	public static synchronized CuentaModelo seleccionarCuenta(int idCuenta){
+		String query="select * from Cuenta where "
+				+ "idCuenta="+idCuenta+";" ;
+		ArrayList<CuentaModelo> cuentas = crearCuentasObject(Conexion.ejecutarConsulta(query));
+		return cuentas.size()>0?cuentas.get(0):null;
+	}
 	
 	public static synchronized int insertarCuenta(CuentaModelo cuenta){
 		String query="insert into Cuenta(idCuenta,usuario,clave,rol,nombre,apellidoPaterno,apellidoMaterno,email) "
@@ -29,7 +35,7 @@ public class CuentaJdbc {
 				+ "'"+cuenta.getUsuario()+"',"
 				+ "'"+cuenta.getClave()+"',"
 				+ "'"+cuenta.getRol()+"',"
-				+ "'"+cuenta.getNombre()+"'"
+				+ "'"+cuenta.getNombre()+"',"
 				+ "'"+cuenta.getApellidoPaterno()+"',"
 				+ "'"+cuenta.getApellidoMaterno()+"',"
 				+ "'"+cuenta.getEmail()+"');";
@@ -48,7 +54,7 @@ public class CuentaJdbc {
 				+ "usuario='"+cuenta.getUsuario()+"',"
 				+ "clave='"+cuenta.getClave()+"',"
 				+ "rol='"+cuenta.getRol()+"',"
-				+ "nombre='"+cuenta.getNombre()+"'"
+				+ "nombre='"+cuenta.getNombre()+"',"
 				+ "apellidoPaterno='"+cuenta.getApellidoPaterno()+"',"
 				+ "apellidoMaterno='"+cuenta.getApellidoMaterno()+"',"
 				+ "email='"+cuenta.getEmail()+"' "
