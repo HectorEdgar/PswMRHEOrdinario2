@@ -1,0 +1,26 @@
+package modelo;
+
+public class ContactoBean {
+	private String nombre;
+	private String email;
+	private String comentario;
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getComentario() {
+		return comentario;
+	}
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+}
