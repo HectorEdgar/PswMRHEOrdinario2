@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import dao.GaleriaJdbc;
 import modelo.GaleriaModelo;
@@ -66,8 +60,30 @@ public class GaleriaControlador extends HttpServlet {
 
 	private void editarGaleria(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		Part archivo = request.getPart("ubicacion");
+
+		
 		GaleriaModelo galeria = new GaleriaModelo(Integer.parseInt(request.getParameter("idGaleria")),
-				request.getParameter("nombre"), request.getParameter("ubicacion"));
+				request.getParameter("nombre"),  archivo.getSubmittedFileName());
+
+		GaleriaModelo galeria2 = GaleriaJdbc.seleccionarGaleria(galeria.getIdGaleria());
+
+		if (!galeria.getUbicacion().equals(galeria2.getUbicacion())) {
+			InputStream is = archivo.getInputStream();
+			String ruta = request.getServletContext().getRealPath("/") + "/img" + "/" + archivo.getSubmittedFileName();
+			
+			FileOutputStream fos = new FileOutputStream(new File(ruta));
+			int dato = is.read();
+			while (dato != -1) {
+				fos.write(dato);
+				dato = is.read();
+			}
+			File file = new File(request.getServletContext().getRealPath("/") + "/img" + "/" +galeria2.getUbicacion());
+			file.delete();
+			fos.close();
+			is.close();
+		}
 
 		if (GaleriaJdbc.actualizarGaleria(galeria) > 0) {
 			response.sendRedirect(request.getContextPath()
@@ -83,6 +99,9 @@ public class GaleriaControlador extends HttpServlet {
 		GaleriaModelo galeria = GaleriaJdbc.seleccionarGaleria(Integer.parseInt(request.getParameter("idGaleria")));
 
 		if (GaleriaJdbc.eliminarGaleria(galeria) > 0) {
+			String ruta = request.getServletContext().getRealPath("/") + "/img" + "/" + galeria.getUbicacion();
+			File file = new File(ruta);
+			file.delete();
 			response.sendRedirect(request.getContextPath()
 					+ "/vista/galeriaAdministrador.jsp?mensaje=Se elimino correctamente&eliminar=true");
 		} else {
@@ -95,23 +114,22 @@ public class GaleriaControlador extends HttpServlet {
 	private void registrarGaleria(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Part archivo = request.getPart("ubicacion");
-		
+
 		InputStream is = archivo.getInputStream();
-		String ruta = request.getServletContext().getRealPath("/")+"/img"+"/"+archivo.getSubmittedFileName();
+		String ruta = request.getServletContext().getRealPath("/") + "img" + "/" + archivo.getSubmittedFileName();
 		FileOutputStream fos = new FileOutputStream(new File(ruta));
 		int dato = is.read();
-		while(dato!=-1){
+		while (dato != -1) {
 			fos.write(dato);
-			dato=is.read();
+			dato = is.read();
 		}
 		fos.close();
 		is.close();
-		
-		GaleriaModelo galeria = new GaleriaModelo(0, 
-				request.getParameter("nombre"), 
-				archivo.getSubmittedFileName());
+
+		GaleriaModelo galeria = new GaleriaModelo(0, request.getParameter("nombre"), archivo.getSubmittedFileName());
 		try {
 			if (GaleriaJdbc.insertarGaleria(galeria) > 0) {
+				System.out.println(ruta);
 				response.sendRedirect(request.getContextPath()
 						+ "/vista/galeriaAdministrador.jsp?mensaje=Se agrego correctamente&insertar=true");
 			} else {

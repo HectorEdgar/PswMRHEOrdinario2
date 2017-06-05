@@ -61,7 +61,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					<label for="ubicacion" class="col-sm-2 control-label">Ubicacion:</label>
 					<div class="col-sm-10">
 						<input type="file" name="ubicacion" id="ubicacion"
-							placeholder="email@email.com" class="">
+							placeholder="" class="">
 					</div>
 				</div>
 

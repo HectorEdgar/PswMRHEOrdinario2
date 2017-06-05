@@ -12,7 +12,7 @@
 <body>
 	<%
 		if (request.getSession().getAttribute("cuenta") != null
-				&& ((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().equals("Administrador")) {
+				&& ((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("administrador")) {
 	%>
 	<div class="container">
 
