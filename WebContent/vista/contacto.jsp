@@ -1,3 +1,4 @@
+<%@page import="modelo.CuentaModelo"%>
 <%@page import="psw.ControladorCuenta"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -5,19 +6,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<%@ include file="../jsp/librerias.jsp"%>
+<%@ include file="../utilerias/librerias.jsp"%>
 <title>Contacto</title>
 </head>
 <body>
+<%
+if (request.getSession().getAttribute("cuenta") != null) {
+%>
 	<div class="container">
-		<jsp:useBean id="cuentaBean" class="modelo.CuentaBean" scope="session" />
-		<jsp:include page="encabezado.jsp">
-			<jsp:param value="contacto" name="activo" />
-		</jsp:include>
+		
 		<%
-			ControladorCuenta.verificarCuenta(response, session);
+			if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("usuario")){
+				%>
+				<jsp:include page="encabezado.jsp">
+					<jsp:param value="contacto" name="activo" />
+				</jsp:include>
+				<%
+				
+			}		
 		%>
-
+	
 		<div class="clearfix"></div>
 		<div class="clearfix"></div>
 		<div class="container">
@@ -60,24 +68,9 @@
 		</div>
 	</div>
 	<%
-		String nombre=(request.getParameter("nombre"))!=null?request.getParameter("nombre"):"";
-		String email=(request.getParameter("email"))!=null?request.getParameter("email"):"";
-		String comentario=(request.getParameter("comentario"))!=null?request.getParameter("comentario"):"";
-			
-		if(!email.equals("") && !comentario.equals("") & !nombre.equals("")){
-			%>
-	<jsp:setProperty property="nombre" name="contactoBean"
-		value="<%=nombre%>" />
-	<jsp:setProperty property="email" name="contactoBean"
-		value="<%=email%>" />
-	<jsp:setProperty property="comentario" name="contactoBean"
-		value="<%=comentario%>" />
-
-
-	<jsp:forward page="procesarContacto.jsp">
-		<jsp:param value="contacto" name="activo" />
-	</jsp:forward>
-	<%
+		} else {
+			response.sendRedirect(request.getContextPath() + "/vista/inicioSesion.jsp");
+			System.out.println("cerrando sesion");
 		}
 	%>
 </body>

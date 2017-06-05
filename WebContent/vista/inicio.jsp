@@ -1,3 +1,4 @@
+<%@page import="modelo.CuentaModelo"%>
 <%@page import="psw.ControladorCuenta"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -11,16 +12,39 @@
 </head>
 <body>
 <%
-		if(request.getSession().getAttribute("cuenta")==null){
-			response.sendRedirect(request.getContextPath()+"/vista/inicioSesion.jsp");
-			System.out.println("cerrando sesion");
-		}else{
-		%>
+if (request.getSession().getAttribute("cuenta") != null) {
+%>
 	<div class="container">
 		
-		<jsp:include page="encabezado.jsp">
-			<jsp:param value="inicio" name="activo" />
-		</jsp:include>
+		<%
+			if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("administrador")){
+				%>
+				<jsp:include page="encabezadoAdministrador.jsp">
+					<jsp:param value="inicio" name="activo" />
+				</jsp:include>
+				<%
+				
+			}else{
+				if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("vendedor")){
+					%>
+					<jsp:include page="encabezadoVendedor.jsp">
+						<jsp:param value="inicio" name="activo" />
+					</jsp:include>
+					<%
+				}else{
+					if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("usuario")){
+					%>
+					<jsp:include page="encabezado.jsp">
+						<jsp:param value="inicio" name="activo" />
+					</jsp:include>
+					<%
+					
+					}
+				}
+			}
+		
+		%>
+		
 		
 		<div class="clearfix"></div>
 		<div class="clearfix"></div>
@@ -54,6 +78,11 @@
 		</div>
 	</div>
 
-<%} %>
+<%
+		} else {
+			response.sendRedirect(request.getContextPath() + "/vista/inicioSesion.jsp");
+			System.out.println("cerrando sesion");
+		}
+	%>
 </body>
 </html>

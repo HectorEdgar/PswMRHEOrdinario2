@@ -1,7 +1,14 @@
+
 <%@page import="modelo.CuentaModelo"%>
 <%
+	if (request.getSession().getAttribute("cuenta") != null
+			&& ((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase()
+					.equals("vendedor")) {
+%>
+
+<%
 	String parametro = (request.getParameter("activo") != null ? request.getParameter("activo") : "");
-	CuentaModelo cuenta=(CuentaModelo)request.getSession().getAttribute("cuenta");
+		CuentaModelo cuenta = (CuentaModelo) request.getSession().getAttribute("cuenta");
 %>
 
 <header>
@@ -23,27 +30,23 @@
 				<li class="<%=parametro.equals("inicio") ? "active" : ""%>"><a
 					href="<%=request.getContextPath() + "/vista/inicio.jsp?activo=inicio"%>">Inicio</a>
 				</li>
-				
-				<li class="<%=parametro.equals("comentarios") ? "active" : ""%>">
-					<a href="<%=request.getContextPath() + "/vista/contacto.jsp?activo=contacto"%>">Comentarios</a>
-				</li>
-				
+				<li class="<%=parametro.equals("contacto") ? "active" : ""%>"><a
+					href="<%=request.getContextPath() + "/vista/contacto.jsp?activo=contacto"%>">Contacto</a></li>
 				<li class="<%=parametro.equals("galeria") ? "active" : ""%>"><a
 					href="<%=request.getContextPath() + "/vista/galeria.jsp?activo=galeria"%>">Galeria</a>
 				</li>
-				
 				<li
 					class="<%=parametro.equals("serviciosProductos") ? "active" : ""%>">
-					<a href="<%=request.getContextPath() + "/vista/serviciosProductos.jsp?activo=serviciosProductos"%>">Servicios
+					<a
+					href="<%=request.getContextPath() + "/vista/serviciosProductos.jsp?activo=serviciosProductos"%>">Servicios
 						y productos</a>
 				</li>
-				
 				<li class="<%=parametro.equals("listaContactos") ? "active" : ""%>">
-					<a	href="<%=request.getContextPath() + "/vista/listaContactos.jsp?activo=listaContactos"%>">Lista
+					<a
+					href="<%=request.getContextPath() + "/vista/listaContactos.jsp?activo=listaContactos"%>">Lista
 						de contactos</a>
 				</li>
 				<%
-					
 					if (cuenta != null) {
 				%>
 				<li class="<%=parametro.equals("cerrarSesion") ? "active" : ""%>">
@@ -55,20 +58,22 @@
 					}
 				%>
 			</ul>
-
-
 		</div>
 		<%
 			if (cuenta != null) {
-				out.println("" + "<h3 class='muted' >Bienvenido: " + "<FONT COLOR='red'>" + cuenta.getNombre()
-						+ "</font></h3>");
-
-			}
+					out.println("" + "<h3 class='muted' >Bienvenido: " + "<FONT COLOR='red'>" + cuenta.getNombre()
+							+ "</font></h3>");
+				}
 		%>
 	</div>
 </nav>
 <div class="navbar-fixed-bottom">
-<footer class="text-center panel-footer ">Universidad
-	La Salle Oaxaca: IS6A</footer>
-	
+	<footer class="text-center panel-footer "> Universidad La
+		Salle Oaxaca: IS6A </footer>
 </div>
+<%
+	} else {
+		response.sendRedirect(request.getContextPath() + "/vista/inicioSesion.jsp");
+		System.out.println("cerrando sesion");
+	}
+%>

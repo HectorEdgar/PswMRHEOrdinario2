@@ -16,9 +16,16 @@
 	%>
 	<div class="container">
 
-		<jsp:include page="encabezado.jsp">
-			<jsp:param value="cuenta" name="activo" />
-		</jsp:include>
+		<%
+			if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("administrador")){
+				%>
+				<jsp:include page="encabezadoAdministrador.jsp">
+					<jsp:param value="contactoAdministrador" name="activo" />
+				</jsp:include>
+				<%
+				
+			}		
+		%>
 
 		<div class="clearfix"></div>
 		<div class="clearfix"></div>
@@ -26,7 +33,7 @@
 
 
 			<form action="<%=request.getContextPath() + "/CuentaControlador"%>"
-				method="get" class="form-horizontal">
+				method="post" class="form-horizontal">
 				<h1>Editar cuenta</h1>
 				<%
 					CuentaModelo cuenta = CuentaJdbc.seleccionarCuenta(Integer.parseInt(request.getParameter("idCuenta")));
