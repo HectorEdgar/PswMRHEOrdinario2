@@ -18,8 +18,7 @@ public class Conexion {
 		Connection cn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			cn = DriverManager.getConnection(url, user, password);
-			
+			cn = DriverManager.getConnection(url, user, password);			
 		} catch (Exception e) {
 			cn = null;
 		} finally {

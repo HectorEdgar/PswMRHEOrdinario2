@@ -39,7 +39,7 @@ public class CarritoJdbc {
 		String query = "update Carrito set "
 				+ "idCuenta="+carrito.getIdCuenta()+","
 				+ "idArticulo='"+carrito.getIdArticulo()+"',"
-				+ "fecha='"+carrito.getEstado()+"' where idCarrito=" + carrito.getIdCarrito() + ";";
+				+ "estado='"+carrito.getEstado()+"' where idCarrito=" + carrito.getIdCarrito() + ";";
 		int columnasAfectadas = Conexion.ejecutarActualizacion(query);
 		return columnasAfectadas;
 	}

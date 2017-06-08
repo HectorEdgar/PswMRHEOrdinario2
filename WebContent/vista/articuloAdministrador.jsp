@@ -173,7 +173,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 						<td colspan="12">Lista de Articulos</td>
 
 					</tr>
-					<tr class="info ">
+					<tr class="info text-center">
 						<td>idArticulo</td>
 						<td>Nombre</td>
 						<td>Estado</td>
@@ -189,7 +189,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					<%
 						for (ArticuloModelo articulo : lista) {
 					%>
-					<tr class="active">
+					<tr class="active text-center">
 						<td><%=articulo.getIdArticulo()%></td>
 						<td><%=articulo.getIdGaleria()%></td>
 						<td><%=articulo.getNombre()%></td>

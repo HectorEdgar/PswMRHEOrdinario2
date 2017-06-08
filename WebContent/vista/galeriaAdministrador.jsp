@@ -100,7 +100,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 						<td colspan="10">Lista de Productos</td>
 
 					</tr>
-					<tr class="info">
+					<tr class="info text-center">
 						<td>idGaleria</td>
 						<td>Imagen</td>
 						<td>Nombre</td>
@@ -111,7 +111,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					<%
 						for (GaleriaModelo galeria : lista) {
 					%>
-					<tr class="active">
+					<tr class="active text-center">
 						<td><%=galeria.getIdGaleria()%></td>
 						<td><img alt="" src="<%="../img/"+galeria.getUbicacion()%>" class="" height="50px"></td>
 						<td><%=galeria.getNombre()%></td>

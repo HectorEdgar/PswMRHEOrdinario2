@@ -141,7 +141,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 						<td colspan="10">Lista de Productos</td>
 
 					</tr>
-					<tr class="info">
+					<tr class="info text-center">
 						<td>idCuenta</td>
 						<td>Usuario</td>
 						<td>Clave</td>
@@ -156,7 +156,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					<%
 						for (CuentaModelo cuenta : lista) {
 					%>
-					<tr class="active">
+					<tr class="active text-center">
 						<td><%=cuenta.getIdCuenta()%></td>
 						<td><%=cuenta.getUsuario()%></td>
 						<td><%=cuenta.getClave()%></td>

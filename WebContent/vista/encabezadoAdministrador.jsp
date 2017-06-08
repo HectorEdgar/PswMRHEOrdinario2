@@ -47,6 +47,10 @@
 					<a href="<%=request.getContextPath() + "/vista/articuloAdministrador.jsp?activo=articulo"%>">Articulos</a>
 				</li>
 				
+				<li	class="<%=parametro.equals("carritoAdministrador") ? "active" : ""%>">
+					<a href="<%=request.getContextPath() + "/vista/carritoAdministrador.jsp?activo=articulo"%>">Carrito</a>
+				</li>
+				
 				<li class="<%=parametro.equals("comentarioAdministrador") ? "active" : ""%>">
 					<a
 					href="<%=request.getContextPath() + "/vista/comentarioAdministrador.jsp?activo=comentarios"%>">Comentarios</a>
