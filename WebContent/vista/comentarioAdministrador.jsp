@@ -1,42 +1,42 @@
-<%@page import="dao.ContactoJdbc"%>
-<%@page import="modelo.ContactoModelo"%>
 <%@page import="dao.CuentaJdbc"%>
+<%@page import="modelo.ComentarioModelo"%>
 <%@page import="java.util.List"%>
+<%@page import="dao.ComentarioJdbc"%>
 <%@page import="modelo.CuentaModelo"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Contacto</title>
+<title>Comentario</title>
 <jsp:include page="../utilerias/librerias.jsp"></jsp:include>
 </head>
 <body>
-<%
-if (request.getSession().getAttribute("cuenta") != null) {
-%>
+	<%
+		if (request.getSession().getAttribute("cuenta") != null) {
+	%>
 	<div class="container">
-		
+
 		<%
-			if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("administrador")){
-				%>
-				<jsp:include page="encabezadoAdministrador.jsp">
-					<jsp:param value="contactoAdministrador" name="activo" />
-				</jsp:include>
-				<%
-				
+			if (((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase()
+						.equals("administrador")) {
+		%>
+		<jsp:include page="encabezadoAdministrador.jsp">
+			<jsp:param value="comentarioAdministrador" name="activo" />
+		</jsp:include>
+		<%
 			}
 		%>
-		
+
 		<div class="clearfix"></div>
 		<div class="clearfix"></div>
 		<div class="col-md-12">
 
 
-			<form action="<%=request.getContextPath() + "/ContactoControlador"%>"
+			<form
+				action="<%=request.getContextPath() + "/ComentarioControlador"%>"
 				method="post" class="form-horizontal">
-				<h1>Agregar contacto</h1>
+				<h1>Agregar comentario</h1>
 				<%
 					String insertar = request.getParameter("insertar") != null ? request.getParameter("insertar") : "";
 						if (!insertar.equals("")) {
@@ -52,17 +52,33 @@ if (request.getSession().getAttribute("cuenta") != null) {
 				%>
 				<input name="accion" type="hidden" value="registrar">
 				<div class="form-group">
-					<label for="nombre" class="col-sm-2 control-label">Nombre:</label>
+					<label for="idCuenta" class="col-sm-2 control-label">Cuenta:</label>
 					<div class="col-sm-10">
-						<input type="text" name="nombre" id="nombre"
-							placeholder="Nombre:" class="form-control">
+						<select class="form-control" name="idCuenta" id="idCuenta">
+							<%
+								List<CuentaModelo> cuentas = CuentaJdbc.seleccionarCuentas();
+
+									for (int i = 0; i < cuentas.size(); i++) {
+							%>
+							<option value="<%=cuentas.get(i).getIdCuenta()%>"><%=cuentas.get(i).getUsuario()%></option>
+							<%
+								}
+							%>
+						</select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="email" class="col-sm-2 control-label">Email:</label>
+					<label for="comentario" class="col-sm-2 control-label">Comentario:</label>
 					<div class="col-sm-10">
-						<input type="email" name="email" id="email"
-							placeholder="email@email.com" class="form-control">
+						<textarea name="comentario" id="comentario"
+							placeholder="Comentario:" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="fecha" class="col-sm-2 control-label">Fecha:</label>
+					<div class="col-sm-10">
+						<input type="date" name="fecha" id="fecha" placeholder=""
+							class="form-control">
 					</div>
 				</div>
 
@@ -92,7 +108,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 				}
 			%>
 			<%
-				List<ContactoModelo> lista = ContactoJdbc.seleccionarContactos();
+				List<ComentarioModelo> lista = ComentarioJdbc.seleccionarComentarios();
 					if (lista.size() > 0) {
 			%>
 			<div class="">
@@ -102,24 +118,28 @@ if (request.getSession().getAttribute("cuenta") != null) {
 
 					</tr>
 					<tr class="info">
+						<td>idComentario</td>
 						<td>idContacto</td>
 						<td>Nombre</td>
+						<td>Comentario</td>
 						<td>Email</td>
 						<td>Editar</td>
 						<td>Eliminar</td>
 					</tr>
 					<%
-						for (ContactoModelo contacto : lista) {
+						for (ComentarioModelo comentario : lista) {
 					%>
 					<tr class="active">
-						<td><%=contacto.getIdContacto()%></td>
-						<td><%=contacto.getNombre()%></td>
-						<td><%=contacto.getEmail()%></td>
+						<td><%=comentario.getIdComentario()%></td>
+						<td><%=comentario.getIdCuenta()%></td>
+						<td><%=comentario.getCuenta().getNombre()%></td>
+						<td><%=comentario.getComentario()%></td>
+						<td><%=comentario.getFecha()%></td>
 						<td>
 							<form
-								action="<%=request.getContextPath() + "/vista/editarContacto.jsp"%>">
-								<input type="hidden" name="idContacto"
-									value="<%=contacto.getIdContacto()%>">
+								action="<%=request.getContextPath() + "/vista/editarComentario.jsp"%>">
+								<input type="hidden" name="idComentario"
+									value="<%=comentario.getIdComentario()%>">
 								<div class="text-center">
 									<button type="submit" class="btn btn-default">
 										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -130,10 +150,11 @@ if (request.getSession().getAttribute("cuenta") != null) {
 
 						</td>
 						<td>
-							<form action="<%=request.getContextPath() + "/ContactoControlador"%>">
-								<input type="hidden" name="idContacto"
-									value="<%=contacto.getIdContacto()%>"> <input type="hidden"
-									name="accion" value="eliminar">
+							<form
+								action="<%=request.getContextPath() + "/ComentarioControlador"%>">
+								<input type="hidden" name="idComentario"
+									value="<%=comentario.getIdComentario()%>"> <input
+									type="hidden" name="accion" value="eliminar">
 								<div class="text-center">
 									<button type="submit" class="btn btn-default">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -161,6 +182,6 @@ if (request.getSession().getAttribute("cuenta") != null) {
 			System.out.println("cerrando sesion");
 		}
 	%>
-		
+
 </body>
 </html>

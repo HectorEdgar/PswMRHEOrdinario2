@@ -15,7 +15,6 @@
 			HttpSession ses = request.getSession();
 			ses.removeAttribute("cuenta");
 			ses.invalidate();
-
 			response.setContentType("text/html");
 			response.setHeader("Cache-Control", "no-cache, no-store,must-revalidate");
 			response.setHeader("Pragma", "no-cache");

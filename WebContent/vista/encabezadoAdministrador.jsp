@@ -43,15 +43,13 @@
 					href="<%=request.getContextPath() + "/vista/galeriaAdministrador.jsp?activo=galeriaAdministrador"%>">Galeria</a>
 				</li>
 				
-				<li	class="<%=parametro.equals("serviciosProductos") ? "active" : ""%>">
-					<a href="<%=request.getContextPath() + "/vista/serviciosProductos.jsp?activo=serviciosProductos"%>">Servicios
-						y productos</a>
+				<li	class="<%=parametro.equals("articuloAdministrador") ? "active" : ""%>">
+					<a href="<%=request.getContextPath() + "/vista/articuloAdministrador.jsp?activo=articulo"%>">Articulos</a>
 				</li>
 				
-				<li class="<%=parametro.equals("listaContactos") ? "active" : ""%>">
+				<li class="<%=parametro.equals("comentarioAdministrador") ? "active" : ""%>">
 					<a
-					href="<%=request.getContextPath() + "/vista/listaContactos.jsp?activo=listaContactos"%>">Lista
-						de contactos</a>
+					href="<%=request.getContextPath() + "/vista/comentarioAdministrador.jsp?activo=comentarios"%>">Comentarios</a>
 				</li>
 				<%
 					if (cuenta != null) {

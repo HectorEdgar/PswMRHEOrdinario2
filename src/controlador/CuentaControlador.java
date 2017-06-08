@@ -139,7 +139,7 @@ public class CuentaControlador extends HttpServlet {
 			request.getSession().setAttribute("cuenta",cuenta);
 			response.sendRedirect(request.getContextPath()+"/vista/inicio.jsp?");
 		}else{
-			response.sendRedirect(request.getContextPath()+"/vista/inicioSesion.jsp?mensaje=Usuario o clave incorrectos");
+			response.sendRedirect(request.getContextPath()+"/vista/inicioSesion.jsp?mensaje=Usuario o clave incorrectos&insertar=false");
 		}
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -52,14 +52,16 @@
 					}
 				%>
 				<input name="accion" type="hidden" value="editar">
+				
 				<div class="form-group">
-					<label for="nombre" class="col-sm-2 control-label">Nombre:</label>
+					<label for="idGaleria" class="col-sm-2 control-label">IdGaleria:</label>
 					<div class="col-sm-10">
-						<input type="text" name="nombre" id="nombre" placeholder="Nombre:"
+						<input type="text" name="idGaleria" id="idGaleria" placeholder="idGaleria:"
 							class="form-control" readonly="readonly"
 							value="<%=galeria.getIdGaleria()%>">
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="nombre" class="col-sm-2 control-label">Nombre:</label>
 					<div class="col-sm-10">
@@ -86,6 +88,7 @@
 			</form>
 			<script type="text/javascript">
 			function setUbicacion(fic) {
+					$("#ubicacion").hide();
 				  fic = fic.split('\\');
 				  $("#ubicacion").val(fic[fic.length-1]);
 				}

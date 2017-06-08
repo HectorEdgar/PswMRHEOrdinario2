@@ -61,14 +61,16 @@ public class GaleriaControlador extends HttpServlet {
 	private void editarGaleria(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Part archivo = request.getPart("ubicacion");
+		Part archivo = request.getPart("ubicacion2");
 
+		int idGaleria=Integer.parseInt(request.getParameter("idGaleria"));
+		GaleriaModelo galeria = new GaleriaModelo(
+				idGaleria,
+				request.getParameter("nombre"),
+				archivo.getSubmittedFileName());
+
+		GaleriaModelo galeria2 = GaleriaJdbc.seleccionarGaleria(idGaleria);
 		
-		GaleriaModelo galeria = new GaleriaModelo(Integer.parseInt(request.getParameter("idGaleria")),
-				request.getParameter("nombre"),  archivo.getSubmittedFileName());
-
-		GaleriaModelo galeria2 = GaleriaJdbc.seleccionarGaleria(galeria.getIdGaleria());
-
 		if (!galeria.getUbicacion().equals(galeria2.getUbicacion())) {
 			InputStream is = archivo.getInputStream();
 			String ruta = request.getServletContext().getRealPath("/") + "/img" + "/" + archivo.getSubmittedFileName();
@@ -114,7 +116,6 @@ public class GaleriaControlador extends HttpServlet {
 	private void registrarGaleria(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Part archivo = request.getPart("ubicacion");
-
 		InputStream is = archivo.getInputStream();
 		String ruta = request.getServletContext().getRealPath("/") + "img" + "/" + archivo.getSubmittedFileName();
 		FileOutputStream fos = new FileOutputStream(new File(ruta));

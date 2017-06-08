@@ -102,6 +102,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					</tr>
 					<tr class="info">
 						<td>idGaleria</td>
+						<td>Imagen</td>
 						<td>Nombre</td>
 						<td>Ubicacion</td>
 						<td>Editar</td>
@@ -112,6 +113,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					%>
 					<tr class="active">
 						<td><%=galeria.getIdGaleria()%></td>
+						<td><img alt="" src="<%="../img/"+galeria.getUbicacion()%>" class="" height="50px"></td>
 						<td><%=galeria.getNombre()%></td>
 						<td><%=galeria.getUbicacion()%></td>
 						<td>
