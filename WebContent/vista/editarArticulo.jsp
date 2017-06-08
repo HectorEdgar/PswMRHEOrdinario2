@@ -27,6 +27,15 @@ if (request.getSession().getAttribute("cuenta") != null) {
 				</jsp:include>
 				<%
 				
+			}else{
+				if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("vendedor")){
+					%>
+					<jsp:include page="encabezadoVendedor.jsp">
+						<jsp:param value="articuloAdministrador" name="activo" />
+					</jsp:include>
+					<%
+					
+				}	
 			}
 		%>
 		

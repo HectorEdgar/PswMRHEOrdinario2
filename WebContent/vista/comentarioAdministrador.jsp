@@ -122,7 +122,7 @@
 						<td>idContacto</td>
 						<td>Nombre</td>
 						<td>Comentario</td>
-						<td>Email</td>
+						<td>Fecha</td>
 						<td>Editar</td>
 						<td>Eliminar</td>
 					</tr>

@@ -30,21 +30,18 @@
 				<li class="<%=parametro.equals("inicio") ? "active" : ""%>"><a
 					href="<%=request.getContextPath() + "/vista/inicio.jsp?activo=inicio"%>">Inicio</a>
 				</li>
-				<li class="<%=parametro.equals("contacto") ? "active" : ""%>"><a
-					href="<%=request.getContextPath() + "/vista/contacto.jsp?activo=contacto"%>">Contacto</a></li>
-				<li class="<%=parametro.equals("galeria") ? "active" : ""%>"><a
-					href="<%=request.getContextPath() + "/vista/galeria.jsp?activo=galeria"%>">Galeria</a>
+				
+				<li class="<%=parametro.equals("galeriaAdministrador") ? "active" : ""%>"><a
+					href="<%=request.getContextPath() + "/vista/galeriaAdministrador.jsp?activo=galeriaAdministrador"%>">Galeria</a>
 				</li>
-				<li
-					class="<%=parametro.equals("serviciosProductos") ? "active" : ""%>">
-					<a
-					href="<%=request.getContextPath() + "/vista/serviciosProductos.jsp?activo=serviciosProductos"%>">Servicios
-						y productos</a>
+				
+				<li	class="<%=parametro.equals("articuloAdministrador") ? "active" : ""%>">
+					<a href="<%=request.getContextPath() + "/vista/articuloAdministrador.jsp?activo=articulo"%>">Articulos</a>
 				</li>
-				<li class="<%=parametro.equals("listaContactos") ? "active" : ""%>">
+				
+				<li class="<%=parametro.equals("carritoVendedor") ? "active" : ""%>">
 					<a
-					href="<%=request.getContextPath() + "/vista/listaContactos.jsp?activo=listaContactos"%>">Lista
-						de contactos</a>
+					href="<%=request.getContextPath() + "/vista/carritoVendedor.jsp?activo=carritoVendedor"%>">Carrito</a>
 				</li>
 				<%
 					if (cuenta != null) {

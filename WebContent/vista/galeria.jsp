@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Galeria</title>
-<%@ include file="../jsp/librerias.jsp"%>
+<%@ include file="../utilerias/librerias.jsp"%>
 </head>
 <body>
 	<div class="container">

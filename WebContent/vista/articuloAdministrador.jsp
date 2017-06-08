@@ -28,6 +28,15 @@ if (request.getSession().getAttribute("cuenta") != null) {
 				</jsp:include>
 				<%
 				
+			}else{
+				if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("vendedor")){
+					%>
+					<jsp:include page="encabezadoVendedor.jsp">
+						<jsp:param value="articuloAdministrador" name="activo" />
+					</jsp:include>
+					<%
+					
+				}
 			}
 		%>
 		
@@ -124,7 +133,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 				<div class="form-group">
 					<label for="costo" class="col-sm-2 control-label">Costo:</label>
 					<div class="col-sm-10">
-						<input type="text" name="costo" id="costo"
+						<input type="number" step="2" min="0" name="costo" id="costo"
 							placeholder="Costo:" class="form-control" value="<%=request.getParameter("costo")!=null?request.getParameter("costo"):""%>">
 					</div>
 				</div>
@@ -191,8 +200,8 @@ if (request.getSession().getAttribute("cuenta") != null) {
 					%>
 					<tr class="active text-center">
 						<td><%=articulo.getIdArticulo()%></td>
-						<td><%=articulo.getIdGaleria()%></td>
 						<td><%=articulo.getNombre()%></td>
+						<td><%=articulo.getEstado()%></td>
 						<td><%=articulo.getEstado()%></td>
 						<td><img height="50px" alt="<%=articulo.getGaleria().getNombre()%>" src="<%="../img/"+articulo.getGaleria().getUbicacion()%>"> </td>
 						<td><%=articulo.getDescripcionCorta()%></td>

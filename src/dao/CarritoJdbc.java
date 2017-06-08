@@ -11,6 +11,34 @@ public class CarritoJdbc {
 		String query = "select * from Carrito;";
 		return crearCarritosObject(Conexion.ejecutarConsulta(query));
 	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritos(int idCuenta) {
+		String query = "select * from Carrito where idCuenta="+idCuenta+";";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritosEnEspera(int idCuenta) {
+		String query = "select * from Carrito where idCuenta="+idCuenta+" && estado='En espera';";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritosPreparando(int idCuenta) {
+		String query = "select * from Carrito where idCuenta="+idCuenta+" && estado='Preparando';";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritosPreparado(int idCuenta) {
+		String query = "select * from Carrito where idCuenta="+idCuenta+" && estado='Preparado';";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritosEnEspera() {
+		String query = "select * from Carrito where estado='En espera';";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritosPreparando() {
+		String query = "select * from Carrito where estado='Preparando';";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<CarritoModelo> seleccionarCarritosPreparado() {
+		String query = "select * from Carrito where estado='Preparado';";
+		return crearCarritosObject(Conexion.ejecutarConsulta(query));
+	}
 
 	public static synchronized CarritoModelo seleccionarCarrito(int idCarrito) {
 		String query = "select * from Carrito where " + "idCarrito=" + idCarrito + ";";

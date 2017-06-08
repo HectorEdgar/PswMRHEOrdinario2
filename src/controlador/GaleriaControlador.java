@@ -64,27 +64,41 @@ public class GaleriaControlador extends HttpServlet {
 		Part archivo = request.getPart("ubicacion2");
 
 		int idGaleria=Integer.parseInt(request.getParameter("idGaleria"));
-		GaleriaModelo galeria = new GaleriaModelo(
-				idGaleria,
-				request.getParameter("nombre"),
-				archivo.getSubmittedFileName());
+		GaleriaModelo galeria=null;
+		if(archivo!=null){
+			galeria = new GaleriaModelo(
+					idGaleria,
+					request.getParameter("nombre"),
+					archivo.getSubmittedFileName());
+		}else{
+			galeria = new GaleriaModelo(
+					idGaleria,
+					request.getParameter("nombre"),
+					request.getParameter("ubicacion"));
+		}
+		
 
 		GaleriaModelo galeria2 = GaleriaJdbc.seleccionarGaleria(idGaleria);
 		
 		if (!galeria.getUbicacion().equals(galeria2.getUbicacion())) {
-			InputStream is = archivo.getInputStream();
-			String ruta = request.getServletContext().getRealPath("/") + "/img" + "/" + archivo.getSubmittedFileName();
-			
-			FileOutputStream fos = new FileOutputStream(new File(ruta));
-			int dato = is.read();
-			while (dato != -1) {
-				fos.write(dato);
-				dato = is.read();
+			try {
+				InputStream is = archivo.getInputStream();
+				String ruta = request.getServletContext().getRealPath("/") + "/img" + "/" + archivo.getSubmittedFileName();
+				
+				FileOutputStream fos = new FileOutputStream(new File(ruta));
+				int dato = is.read();
+				while (dato != -1) {
+					fos.write(dato);
+					dato = is.read();
+				}
+				File file = new File(request.getServletContext().getRealPath("/") + "/img" + "/" +galeria2.getUbicacion());
+				file.delete();
+				fos.close();
+				is.close();
+			} catch (Exception e) {
+				
 			}
-			File file = new File(request.getServletContext().getRealPath("/") + "/img" + "/" +galeria2.getUbicacion());
-			file.delete();
-			fos.close();
-			is.close();
+			
 		}
 
 		if (GaleriaJdbc.actualizarGaleria(galeria) > 0) {

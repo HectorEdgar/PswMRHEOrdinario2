@@ -13,7 +13,7 @@ public class ComentarioJdbc {
 	}
 
 	public static synchronized ComentarioModelo seleccionarComentario(int idComentario) {
-		String query = "select * from Comentario where " + "idComentario=" + idComentario + ";";
+		String query = "select * from Comentario where " + "idComentario=" + idComentario + " order by fecha asc;";
 		ArrayList<ComentarioModelo> comentarios = crearComentariosObject(Conexion.ejecutarConsulta(query));
 		return comentarios.size() > 0 ? comentarios.get(0) : null;
 	}

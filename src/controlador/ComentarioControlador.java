@@ -45,7 +45,11 @@ public class ComentarioControlador extends HttpServlet {
         		if(accion.equals("eliminar")){
         			this.eliminarComentario(request, response);
         		}else{
-        			response.sendRedirect(request.getContextPath()+"/vista/inicio.jsp");
+        			if(accion.equals("registrarUsuario")){
+            			this.registrarComentarioUsuario(request, response);
+            		}else{
+            			response.sendRedirect(request.getContextPath()+"/vista/inicio.jsp");
+            		}
         		}
         	}
         }
@@ -74,7 +78,30 @@ public class ComentarioControlador extends HttpServlet {
     	}
     	
     }
-
+    private void registrarComentarioUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	try {
+    		Integer.parseInt(request.getParameter("idCuenta"));
+		} catch (Exception e) {
+			System.out.println(request.getParameter("idCuenta"));
+		}
+    	
+    	ComentarioModelo comentario = new ComentarioModelo(
+    			0,
+    			Integer.parseInt(request.getParameter("idCuenta")),
+    			request.getParameter("comentario"),
+    			new Date(new java.util.Date().getTime())
+    			);
+    	try {
+    		if(ComentarioJdbc.insertarComentario(comentario)>0){
+        		response.sendRedirect(request.getContextPath()+"/vista/comentarioUsuario.jsp?mensaje=Se agrego correctamente&insertar=true");
+        	}else{
+        		response.sendRedirect(request.getContextPath()+"/vista/comentarioUsuario.jsp?mensaje=Ocurrio un error al agregar&insertar=false");
+        	}
+		} catch (Exception e) {
+			response.sendRedirect(request.getContextPath()+"/vista/comentarioUsuario.jsp?mensaje=Ocurrio un error al agregar&insertar=false");
+		}  	
+    	
+    }
     private void registrarComentario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	try {
     		Integer.parseInt(request.getParameter("idCuenta"));

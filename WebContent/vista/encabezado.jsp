@@ -24,12 +24,12 @@
 					href="<%=request.getContextPath() + "/vista/inicio.jsp?activo=inicio"%>">Inicio</a>
 				</li>
 				
-				<li class="<%=parametro.equals("comentarios") ? "active" : ""%>">
-					<a href="<%=request.getContextPath() + "/vista/contacto.jsp?activo=contacto"%>">Comentarios</a>
+				<li class="<%=parametro.equals("comentarioUsuario") ? "active" : ""%>">
+					<a href="<%=request.getContextPath() + "/vista/comentarioUsuario.jsp?activo=contacto"%>">Comentarios</a>
 				</li>
 				
-				<li class="<%=parametro.equals("galeria") ? "active" : ""%>"><a
-					href="<%=request.getContextPath() + "/vista/galeria.jsp?activo=galeria"%>">Galeria</a>
+				<li class="<%=parametro.equals("galeriaUsuario") ? "active" : ""%>"><a
+					href="<%=request.getContextPath() + "/vista/galeriaUsuario.jsp?activo=galeria"%>">Galeria</a>
 				</li>
 				
 				<li
@@ -38,7 +38,7 @@
 						y productos</a>
 				</li>
 				
-				<li class="<%=parametro.equals("listaContactos") ? "active" : ""%>">
+				<li class="<%=parametro.equals("listaContatos") ? "active" : ""%>">
 					<a	href="<%=request.getContextPath() + "/vista/listaContactos.jsp?activo=listaContactos"%>">Lista
 						de contactos</a>
 				</li>

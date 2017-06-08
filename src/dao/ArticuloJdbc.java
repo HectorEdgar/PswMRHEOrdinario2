@@ -12,6 +12,22 @@ public class ArticuloJdbc {
 		String query = "select * from Articulo;";
 		return crearArticulosObject(Conexion.ejecutarConsulta(query));
 	}
+	public static synchronized ArrayList<ArticuloModelo> seleccionarArticulosComida() {
+		String query = "select * from Articulo where tipo='Comida';";
+		return crearArticulosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<ArticuloModelo> seleccionarArticulosBebida() {
+		String query = "select * from Articulo where tipo='Bebida';";
+		return crearArticulosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<ArticuloModelo> seleccionarArticulosComidaDisponible() {
+		String query = "select * from Articulo where tipo='Comida' && estado='Disponible';";
+		return crearArticulosObject(Conexion.ejecutarConsulta(query));
+	}
+	public static synchronized ArrayList<ArticuloModelo> seleccionarArticulosBebidaDisponible() {
+		String query = "select * from Articulo where tipo='Bebida' && estado='Disponible';";
+		return crearArticulosObject(Conexion.ejecutarConsulta(query));
+	}
 
 	public static synchronized ArticuloModelo seleccionarArticulo(int idArticulo) {
 		String query = "select * from Articulo where " + "idArticulo=" + idArticulo + ";";

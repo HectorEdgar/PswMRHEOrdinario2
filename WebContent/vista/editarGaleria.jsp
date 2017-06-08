@@ -25,6 +25,15 @@
 			<jsp:param value="galeriaAdministrador" name="activo" />
 		</jsp:include>
 		<%
+			}else{
+				if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("vendedor")){
+					%>
+					<jsp:include page="encabezadoVendedor.jsp">
+						<jsp:param value="galeriaAdministrador" name="activo" />
+					</jsp:include>
+					<%
+					
+				}	
 			}
 		%>
 
@@ -74,7 +83,8 @@
 					<div class="col-sm-10">
 						<input type="text" name="ubicacion" id="ubicacion" placeholder=""
 							class="form-control" value="<%=galeria.getUbicacion()%>"
-							readonly="readonly"> <input type="file" name="ubicacion2"
+							readonly="readonly">
+							<input type="file" name="ubicacion2"
 							id="ubicacion2" onclick="$('#ubicacion');"
 							onchange="setUbicacion(this.value)">
 					</div>

@@ -28,6 +28,15 @@ if (request.getSession().getAttribute("cuenta") != null) {
 				</jsp:include>
 				<%
 				
+			}else{
+				if(((CuentaModelo) request.getSession().getAttribute("cuenta")).getRol().toLowerCase().equals("vendedor")){
+					%>
+					<jsp:include page="encabezadoVendedor.jsp">
+						<jsp:param value="carritoVendedor" name="activo" />
+					</jsp:include>
+					<%
+					
+				}
 			}
 		%>
 		
@@ -37,7 +46,7 @@ if (request.getSession().getAttribute("cuenta") != null) {
 		
 			<form action="<%=request.getContextPath() + "/CarritoControlador"%>"
 				method="post" class="form-horizontal">
-				<h1>Agregar articulo</h1>
+				<h1>Agregar Carrito</h1>
 				<%
 					String insertar = request.getParameter("insertar") != null ? request.getParameter("insertar") : "";
 						if (!insertar.equals("")) {
